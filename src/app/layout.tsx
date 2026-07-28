@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -14,10 +14,32 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F8F6F3" },
+    { media: "(prefers-color-scheme: dark)", color: "#1A1A1A" },
+  ],
+};
+
 export const metadata: Metadata = {
-  title: "Cursor Boston × Hult — Vibe Showcase",
+  title: {
+    default: "Cursor Boston × Hult — Vibe Showcase",
+    template: "%s — Cursor Boston × Hult Showcase",
+  },
   description:
-    "Curated editorial showcase of the best weekly builds from the Cursor Boston × Hult cohort.",
+    "Curated editorial showcase of the best weekly builds from the Cursor Boston × Hult cohort. Warm design, clean typography, zero cruft.",
+  openGraph: {
+    title: "Cursor Boston × Hult — Vibe Showcase",
+    description:
+      "Curated editorial showcase of the best weekly builds from the Cursor Boston × Hult cohort.",
+    siteName: "Vibe Showcase",
+    type: "website",
+    locale: "en_US",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
