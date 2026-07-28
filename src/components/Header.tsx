@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   return (
@@ -7,7 +8,7 @@ export function Header() {
         <Link href="/" className="text-lg font-semibold tracking-tight">
           Vibe<span className="text-vibe-accent">.</span>
         </Link>
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-4">
           <Link
             href="/"
             className="text-sm font-medium text-vibe-muted hover:text-vibe-accent transition-colors"
@@ -32,6 +33,7 @@ export function Header() {
           >
             Admin
           </Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
