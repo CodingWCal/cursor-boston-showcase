@@ -121,7 +121,7 @@ src/
 │   └── ThemeToggle.tsx     # Dark mode toggle
 ├── lib/
 │   ├── prisma/
-│   │   └── db.ts           # Prisma client singleton with better-sqlite3 adapter
+│   │   └── db.ts           # Prisma client singleton with LibSQL adapter (local file or Turso)
 │   └── utils/
 │       ├── cn.ts           # clsx + tailwind-merge
 │       ├── formatDate.ts   # Date formatting
@@ -132,11 +132,11 @@ src/
 
 ## Database Notes
 
-- Uses **SQLite** via better-sqlite3 for zero-config local development
-- Prisma v7 uses a driver adapter pattern — `PrismaBetterSqlite3` wraps the native driver
+- **Local dev**: Uses local SQLite file (`dev.db`) via `@libsql/client` — zero config
+- **Production**: Uses **Turso** (serverless SQLite) via the same LibSQL adapter — swap `DATABASE_URL` only
+- Prisma v7 uses a driver adapter pattern — `PrismaLibSql` wraps the LibSQL client
 - `DATABASE_URL` goes in `prisma.config.ts`, not `schema.prisma`
 - `String[]` not supported — `images` and `techStack` stored as JSON strings, parse with `JSON.parse()` / `JSON.stringify()`
-- Migrate from SQLite → Turso (serverless SQLite) for production deployment
 
 ## Deployment
 
@@ -149,17 +149,25 @@ vercel
 
 Set the following environment variables in the Vercel dashboard:
 
-- `DATABASE_URL` — point to your production database (Turso recommended)
-- `GITHUB_ID`, `GITHUB_SECRET`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
+| Variable | Value |
+|----------|-------|
+| `DATABASE_URL` | Your Turso DB URL (e.g. `libsql://your-db.turso.io`) |
+| `DATABASE_AUTH_TOKEN` | Your Turso auth token |
+| `GITHUB_ID` | GitHub OAuth App client ID |
+| `GITHUB_SECRET` | GitHub OAuth App client secret |
+| `NEXTAUTH_SECRET` | Random string for session encryption |
+| `NEXTAUTH_URL` | Your Vercel deployment URL |
+| `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL |
 
-### Production Database
+### Production Database (Turso)
 
-For production, migrate from local SQLite to **Turso** (serverless SQLite):
-
-1. Create a Turso database
-2. Install `@libsql/client` and `@prisma/adapter-libsql`
-3. Update `prisma.config.ts` and Prisma client adapter
-4. Push schema: `npx prisma db push`
+1. **Install Turso CLI**: `npm i -g turso`
+2. **Login**: `turso auth login`
+3. **Create DB**: `turso db create cursor-boston-showcase`
+4. **Get URL**: `turso db show cursor-boston-showcase --url`
+5. **Get token**: `turso db tokens create cursor-boston-showcase`
+6. **Push schema**: `DATABASE_URL="libsql://..." DATABASE_AUTH_TOKEN="..." npx prisma db push`
+7. **Seed data**: `DATABASE_URL="libsql://..." DATABASE_AUTH_TOKEN="..." npx tsx prisma/seed.ts`
 
 ## License
 
