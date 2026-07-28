@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Member {
+  id          String          @id @default(cuid())
+  name        String
+  email       String          @unique
+  slug        String          @unique
+  avatar      String?
+  bio         String?
+  githubUrl   String?
+  twitterUrl  String?
+  linkedinUrl String?
+  websiteUrl  String?
+  cohort      String          @default("Cursor Boston x Hult 2026")
+  status      String          @default("active")
+  projectMembers ProjectMember[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  title       String
+  slug        String          @unique
+  description String
+  coverImage  String?
+  images      String   @default("[]")
+  techStack   String   @default("[]")
+  githubUrl   String?
+  liveUrl     String?
+  featured    Boolean         @default(false)
+  members     ProjectMember[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model ProjectMember {
+  id        String   @id @default(cuid())
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  memberId  String
+
+  @@unique([projectId, memberId])
+  @@index([memberId])
+}
+
+model Editor {
+  id        String   @id @default(cuid())
+  githubId  String   @unique
+  name      String
+  email     String?
+  avatar    String?
+  role      String   @default("editor")
+  createdAt DateTime @default(now())
+}
