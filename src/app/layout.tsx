@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -13,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cursor Boston × Hult — Showcase",
+  title: "Cursor Boston × Hult — Vibe Showcase",
   description:
     "Curated editorial showcase of the best weekly builds from the Cursor Boston × Hult cohort.",
 };
@@ -25,7 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen font-sans antialiased">{children}</body>
+      <body className="min-h-screen font-sans antialiased flex flex-col">
+        <Header />
+        <main className="mx-auto w-full max-w-[1280px] flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }
