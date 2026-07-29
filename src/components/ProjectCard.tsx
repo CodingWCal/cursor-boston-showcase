@@ -47,9 +47,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
 
         <div className="p-5">
-          <p className="text-[0.6875rem] font-medium text-vibe-accent uppercase tracking-[0.08em] mb-2">
-            Featured Project
-          </p>
+          {project.featured && (
+            <p className="text-[0.6875rem] font-medium text-vibe-accent uppercase tracking-[0.08em] mb-2">
+              Featured Project
+            </p>
+          )}
           <h3 className="text-lg font-semibold tracking-tight mb-1.5 leading-snug">
             {project.title}
           </h3>

@@ -38,12 +38,12 @@ export default async function AdminPage() {
         <p className="text-sm text-vibe-muted mb-6">
           You don&apos;t have editor access. Contact the cohort lead.
         </p>
-        <a
+        <Link
           href="/api/auth/signout"
           className="text-sm text-vibe-accent hover:underline"
         >
           Sign out
-        </a>
+        </Link>
       </div>
     );
   }
@@ -121,12 +121,12 @@ export default async function AdminPage() {
       )}
 
       <div className="mt-8 pt-4 border-t border-vibe-border dark:border-vibe-border-dark">
-        <a
+        <Link
           href="/api/auth/signout"
           className="text-xs text-vibe-muted hover:text-vibe-accent transition-colors"
         >
           Sign out
-        </a>
+        </Link>
       </div>
     </div>
   );

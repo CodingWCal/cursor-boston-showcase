@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { prisma } from "@/lib/prisma/db";
 import { ProjectCard } from "@/components/ProjectCard";
 import type { Metadata } from "next";

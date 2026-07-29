@@ -43,11 +43,6 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   const techStack: string[] = JSON.parse(project.techStack);
   const images: string[] = JSON.parse(project.images);
-  const initials = project.title
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .slice(0, 2);
 
   return (
     <div className="px-8 max-md:px-5 pb-12 animate-fade-in">

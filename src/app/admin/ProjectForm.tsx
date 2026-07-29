@@ -97,7 +97,15 @@ export function ProjectForm({ project, members }: Props) {
             name="techStack"
             type="text"
             defaultValue={
-              project ? JSON.parse(project.techStack).join(", ") : ""
+              project
+                ? (() => {
+                    try {
+                      return JSON.parse(project.techStack).join(", ");
+                    } catch {
+                      return project.techStack;
+                    }
+                  })()
+                : ""
             }
             placeholder="React, Node.js, Prisma"
             className="w-full px-3 py-2.5 rounded-[4px] border border-vibe-border dark:border-vibe-border-dark bg-vibe-surface dark:bg-vibe-surface-dark text-sm text-vibe-text dark:text-vibe-text-dark focus:outline-none focus:border-vibe-accent transition-colors"
