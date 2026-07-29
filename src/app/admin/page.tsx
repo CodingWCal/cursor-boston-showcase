@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma/db";
 import { auth } from "@/lib/auth/config";
 import { formatDate } from "@/lib/utils/formatDate";
 import { DeleteButton } from "./DeleteButton";
+import { SignInButton } from "./SignInButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,12 +20,7 @@ export default async function AdminPage() {
         <p className="text-sm text-vibe-muted mb-6">
           Sign in with GitHub to manage projects.
         </p>
-        <a
-          href="/api/auth/signin"
-          className="inline-block px-5 py-2.5 rounded-[4px] bg-vibe-accent text-white text-sm font-semibold hover:bg-vibe-accent-hover transition-colors"
-        >
-          Sign in with GitHub
-        </a>
+        <SignInButton />
       </div>
     );
   }
