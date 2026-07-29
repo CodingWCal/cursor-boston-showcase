@@ -55,7 +55,7 @@ export async function createProject(
   }
 
   const data = parsed.data;
-  const finalSlug = data.slug || slugify(data.title);
+  const finalSlug = (data.slug || slugify(data.title)).slice(0, 120);
   const techStackArray = data.techStack
     .split(",")
     .map((t) => t.trim())
@@ -104,7 +104,7 @@ export async function updateProject(
   }
 
   const data = parsed.data;
-  const finalSlug = data.slug || slugify(data.title);
+  const finalSlug = (data.slug || slugify(data.title)).slice(0, 120);
   const techStackArray = data.techStack
     .split(",")
     .map((t) => t.trim())

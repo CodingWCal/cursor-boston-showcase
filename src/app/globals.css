@@ -34,6 +34,11 @@ body.dark {
   color: var(--color-vibe-text-dark);
 }
 
+*:focus-visible {
+  outline: 2px solid var(--color-vibe-accent);
+  outline-offset: 2px;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }

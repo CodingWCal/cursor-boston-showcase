@@ -38,6 +38,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           />
         ) : (
           <div
+            aria-hidden="true"
             className={`w-full h-[200px] bg-linear-to-br ${gradient} flex items-center justify-center`}
           >
             <span className="text-3xl font-bold text-vibe-accent opacity-60">
