@@ -1,15 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === "undefined") return false;
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const isDark = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    if (isDark) document.body.classList.add("dark");
-    return isDark;
-  });
+    if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.body.classList.add("dark");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDark(true);
+    }
+  }, []);
 
   function toggle() {
     const next = !dark;
